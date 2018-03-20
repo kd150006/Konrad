@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Location } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
 import { Product } from './../product/shared/product.model';
 import { ProductSearchComponent } from './../product/product-search/product-search.component';
@@ -28,6 +30,7 @@ export class SalesComponent implements OnInit {
 
   constructor(
     private location: Location,
+    private router: Router,
     public productListService: ProductListService,
     private productService: ProductService,
     private basketHeaderService: BasketHeaderService,
@@ -38,9 +41,9 @@ export class SalesComponent implements OnInit {
     this.givenAmount = 0.0;
     this._remainingAmount = 0.0;
     this._changeAmount = 0.0;
-    // this._sumTotal = 0.0;
     this.basketHeader = new BasketHeader();
     this.basketHeader.basketDate = new Date();
+    this.basketHeader.transactionType = 'Sale';
     this.basketHeader.sumTotal = 0.0;
   }
   // GETTERS
@@ -80,15 +83,14 @@ export class SalesComponent implements OnInit {
     );
     this.basketHeaderService
       .postBasketHeader(this.basketHeader)
-      .subscribe(() => this.clearAll());
+      .subscribe(() => this.showReceipt());
   }
 
   goBack(): void {
     this.location.back();
   }
 
-  clearAll(): void {
-    this.clear();
-    this.goBack();
+  showReceipt(): void {
+    this.router.navigate(['/sales/receipt']);
   }
 }

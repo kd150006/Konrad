@@ -10,6 +10,7 @@ import { DashBoardModule } from './dashboard/dashboard.module';
 import { JournalModule } from './journal/journal.module';
 import { ProductModule } from './product/product.module';
 import { SalesModule } from './sales/sales.module';
+import { ReturnModule } from './return/return.module';
 import { CashdrawerModule } from './cashdrawer/cashdrawer.module';
 
 /* Own components */
@@ -24,6 +25,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     JournalModule,
     CashdrawerModule,
     SalesModule,
+    ReturnModule,
     ProductModule,
     AppRoutingModule
   ],

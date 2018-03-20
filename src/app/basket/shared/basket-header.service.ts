@@ -45,6 +45,18 @@ export class BasketHeaderService {
         catchError(this.handleError<BasketHeader>(`getHeader id=${id}`))
       );
   }
+  // GET get the latest basket header aka max id
+  getLatestBasketHeader(): Observable<BasketHeader> {
+    const url = `${this.baseUrl}/latest`;
+    return this.http
+      .get<BasketHeader>(url)
+      .pipe(
+        tap(_ => this.log(`fetched latest header`)),
+        catchError(
+          this.handleError<BasketHeader>(`getLatestBasketHeader`)
+        )
+      );
+  }
   // GET basket headers that contain search term
   searchBasketHeaders(term: string): Observable<BasketHeader[]> {
     const url = `${this.baseUrl}/search/${term}`;
@@ -68,7 +80,7 @@ export class BasketHeaderService {
         tap(_ => this.log(`created basket`)),
         catchError(this.handleError<any>('createBasketHeader'))
       );
-    }
+  }
   // DELETE
 
   /*

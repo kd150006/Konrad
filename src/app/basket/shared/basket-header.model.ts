@@ -1,10 +1,11 @@
 import { BasketDetail } from './basket-detail.model';
 
 export class BasketHeader {
-
-  id: number;
   basketDate: Date;
+  id: number;
   sumTotal: number;
+  referenceBasketHeaderId?: number;
   status: string;
+  transactionType: string;
   basketDetails: BasketDetail[];
 }

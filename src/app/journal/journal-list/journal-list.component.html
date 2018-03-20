@@ -8,6 +8,7 @@
       <th>Id</th>
       <th>Date</th>
       <th>Total</th>
+      <th>Transaction type</th>
       <th>Action</th>
     </tr>
   </thead>
@@ -18,6 +19,7 @@
       <td> {{ journal.id }} </td>
       <td> {{ journal.basketDate | date }} </td>
       <td> {{ journal.sumTotal }} </td>
+      <td> {{ journal.transactionType }} </td>
       <td>
         <button class="btn btn-sm btn-info" routerLink="./id/{{journal.id}}">Details</button>
       </td>

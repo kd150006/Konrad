@@ -4,15 +4,14 @@ import { CommonModule } from '@angular/common';
 
 import { MessageService } from './../messages/shared/message.service';
 import { BasketHeaderService } from './../basket/shared/basket-header.service';
-import { SalesComponent } from './sales.component';
-
 import { ProductModule } from './../product/product.module';
-import { SalesRoutingModule } from './sales-routing.module';
-import { SalesReceiptComponent } from './sales-receipt/sales-receipt.component';
+
+import { ReturnComponent } from './return.component';
+import { ReturnRoutingModule } from './return-routing.module';
 
 @NgModule({
-  declarations: [SalesComponent, SalesReceiptComponent],
-  imports: [CommonModule, FormsModule, ProductModule, SalesRoutingModule],
+  declarations: [ReturnComponent],
+  imports: [CommonModule, FormsModule, ProductModule, ReturnRoutingModule],
   providers: [BasketHeaderService, MessageService]
 })
-export class SalesModule {}
+export class ReturnModule {}
