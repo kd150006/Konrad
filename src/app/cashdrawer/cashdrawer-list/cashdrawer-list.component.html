@@ -1,0 +1,20 @@
+<div class="container-fluid">
+  <br>
+  <table class=" table table-hover">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Balance</th>
+      </tr>
+    </thead>
+    <br>
+    <tbody>
+      <tr *ngFor="let cashdrawer of cashdrawers; let i = index">
+        <td hidden> {{ cashdrawer.id }} </td>
+        <td> {{ i+1 }} </td>
+        <td> {{ cashdrawer.balance | currency: 'EUR' }} </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<button class="btn btn-secondary" (click)="goBack()">Back</button>

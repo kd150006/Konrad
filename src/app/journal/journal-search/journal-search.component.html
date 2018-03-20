@@ -1,0 +1,22 @@
+<br>
+<form>
+  <div class="form-group" id="journal-search-component">
+    <div class="input-group" name="first group">
+      <input type="text" class="form-control" id="product-search-box" placeholder="Search by ID or date ..." #journalSearchBox
+        (keyup)="search(journalSearchBox.value)">
+      <span class="input-group-btn">
+        <button class="btn btn-outline-danger" type="button" (click)="search(journalSearchBox.value='')">x</button>
+      </span>
+    </div>
+  </div>
+  <table class="search-result table table-sm table-hover">
+    <tr *ngFor="let journal of journals$ | async">
+      <td>Journal # {{ journal.id }} </td>
+      <td> Date: {{ journal.basketDate | date }} </td>
+      <td> Sum total: {{ journal.sumTotal | currency: 'EUR'}} </td>
+      <td>
+        <button class="btn btn-info" routerLink="./id/{{journal.id}}">Details</button>
+      </td>
+    </tr>
+  </table>
+</form>

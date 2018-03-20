@@ -1,0 +1,98 @@
+<div class="container-fluid">
+  <app-product-search></app-product-search>
+  <div class="btn-toolbar float-right" role="toolbar" aria-label="Toolbar with button groups">
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+      <button type="button" class="btn btn-warning" (click)="clear()">Clear</button>
+    </div>
+    <div class="btn-group" role="group" aria-label="Second group">
+      <button *ngIf="!productListService.products.length" disabled type="button" class="btn btn-success">TOTAL</button>
+      <button *ngIf="productListService.products.length" type="button" class="btn btn-success" data-toggle="modal" data-target="#salesNotifyModal">
+        TOTAL
+      </button>
+    </div>
+  </div>
+  <table class="table table-hover table-sm">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Number</th>
+        <th>Price</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody *ngIf="productListService.products.length">
+      <tr *ngFor="let product of productListService.products; let i = index">
+        <td>{{ i+1 }}</td>
+        <td>{{ product.name }}</td>
+        <td>{{ product.number }}</td>
+        <td>{{ product.netPrice }}</td>
+        <td>
+          <button class="btn btn-outline-danger" (click)="remove(selectedProduct = product)">x</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="form-inline float-right">
+    <div class="form-row">
+      <div class="form-col">
+        <input type="text" readonly class="form-control-plaintext" id="sumTotalLabel" value="Sum total: ">
+      </div>
+      <div class="form-col">
+        <input type="text" readonly class="form-control-plaintext" id="sumTotalValue" value=" {{ productListService.sum | currency: 'EUR' }}">
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal" id="salesNotifyModal" tabindex="-1" role="dialog" aria-labelledby="salesNotifyModalLabel" aria-hidden="true"
+  data-backdrop="false">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="salesNotifyModalLabel">Checkout</h5>
+        <!-- <button type="button" class="close" data-dismiss="modal" (Click)="checkoutForm.reset()"aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button> -->
+      </div>
+      <div class="modal-body">
+        <form #checkoutForm="ngForm">
+          <div class="form-group row">
+            <label for="staticSumTotal" class="col-sm-2 col-form-label">Total</label>
+            <div class="col-sm-10">
+              <input type="number" readonly class="form-control-plaintext" id="staticSumTotal" name="sumTotal" [(ngModel)]="basketHeader.sumTotal" value="{{ basketHeader.sumTotal }}">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="staticRemaingAmount" class="col-sm-2 col-form-label">Remaining</label>
+            <div class="col-sm-10">
+              <input type="number" readonly class="form-control-plaintext" id="staticRemainingAmount" [(ngModel)]="remainingAmount" name="remainingAmount"
+                value=" {{ remainingAmount }}">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="staticChangeAmount" class="col-sm-2 col-form-label">Change</label>
+            <div class="col-sm-10">
+              <input type="number" readonly class="form-control-plaintext" id="staticChangeAmount" [(ngModel)]="changeAmount" name="changeAmount"
+                value=" {{ changeAmount }}">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="givenAmount" class="col-sm-2 col-form-label">Given</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="givenAmount" name="givenAmount" [(ngModel)]="givenAmount">
+            </div>
+          </div>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="givenAmount = 0">Cancel</button>
+        <button type="button" class="btn btn-success" (click)="checkout()">Checkout</button>
+      </div>
+    </div>
+  </div>
+</div>

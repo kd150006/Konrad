@@ -1,0 +1,49 @@
+<br>
+<div class="container-fluid">
+  <form #cashupForm="ngForm" class="form-inline">
+    <div class="form-group mb-2">
+      <label for="cashUp" class="sr-only">Cash up</label>
+      <input type="text" readonly class="form-control-plaintext" id="cashUp" value="Your count:">
+    </div>
+    <div class="form-group mx-sm-3 mb-2">
+      <label for="moneyCounted" class="sr-only">Counted amount</label>
+      <input type="number" class="form-control" id="moneyCounted" placeholder="Counted amount" name="countedAmount" [(ngModel)]="countedAmount">
+    </div>
+    <div class="form-group mx-sm-3 mb-2">
+    <button [disabled]="countedAmount === 0" type="button" class="btn btn-primary" data-toggle="modal" data-target="#cashupNotifyModal">
+      Confirm
+    </button>
+    </div>
+  </form>
+</div>
+<button class="btn btn-secondary" (click)="goBack()">Back</button>
+
+<div class="modal" id="cashupNotifyModal" tabindex="-1" role="dialog" aria-labelledby="cashupNotifyModalLabel" aria-hidden="true"
+  data-backdrop="false">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Result</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>
+          <b>Count: {{ countedAmount }}</b>
+        </p>
+        <p>
+          <b>Current balance: {{cashdrawer.balance }}</b>
+        </p>
+
+        <p>
+          If you proceed, the cash drawer balance will be updated accordingly.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" (click)="save()">Proceed</button>
+      </div>
+    </div>
+  </div>
+</div>

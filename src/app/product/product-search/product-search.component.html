@@ -1,0 +1,32 @@
+<br>
+<form>
+  <div class="form-group" id="product-search-component">
+    <div class="input-group" name="first group">
+      <input type="text" class="form-control" id="product-search-box" placeholder="Search by name, number or barcode ..." #productSearchBox
+        (keyup)="search(productSearchBox.value)">
+      <span class="input-group-btn">
+        <button class="btn btn-outline-danger" type="button" (click)="search(productSearchBox.value='')">x</button>
+      </span>
+    </div>
+  </div>
+  <table class="search-result table table-sm table-hover">
+    <tr *ngFor="let product of products$ | async">
+      <td>
+        {{product.name}}
+      </td>
+      <!-- Buttons indicate available stockqty -->
+      <td *ngIf="product.quantity === 0 || product.quantity === null">
+        <button class="btn btn-sm btn-outline-secondary" disabled type="button" dsiabled routerLink="">Add</button>
+      </td>
+      <td *ngIf="product.quantity > 0 && product.quantity <= 5">
+        <button class="btn btn-sm btn-outline-danger" type="button" dsiabled routerLink="" (click)="addToList(product)">Add</button>
+      </td>
+      <td *ngIf="product.quantity >=6  && product.quantity <= 10">
+        <button class="btn btn-sm btn-outline-warning" type="button" dsiabled routerLink="" (click)="addToList(product)">Add</button>
+      </td>
+      <td *ngIf="product.quantity > 10">
+        <button class="btn btn-sm btn-outline-success" type="button" dsiabled routerLink="" (click)="addToList(product)">Add</button>
+      </td>
+    </tr>
+  </table>
+</form>

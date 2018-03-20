@@ -1,0 +1,27 @@
+<div class="container-fluid">
+<app-journal-search></app-journal-search>
+<br>
+<table class=" table table-hover">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Id</th>
+      <th>Date</th>
+      <th>Total</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <br>
+  <tbody>
+    <tr *ngFor="let journal of journals; let i = index">
+      <td> {{ i+1 }} </td>
+      <td> {{ journal.id }} </td>
+      <td> {{ journal.basketDate | date }} </td>
+      <td> {{ journal.sumTotal }} </td>
+      <td>
+        <button class="btn btn-sm btn-info" routerLink="./id/{{journal.id}}">Details</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>

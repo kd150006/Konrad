@@ -1,0 +1,23 @@
+<br>
+<h5>Journal #{{ journalId }} Details</h5>
+<table class="table">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Name</th>
+      <th>Number</th>
+      <th>Price</th>
+      <th>Quantity</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let detail of details; let i = index">
+      <td> {{ i+1 }} </td>
+      <td> {{ detail.product.name }} </td>
+      <td> {{ detail.product.number }} </td>
+      <td> {{ detail.productPrice }} </td>
+      <td> {{ detail.quantity }} </td>
+    </tr>
+  </tbody>
+</table>
+<button class="btn btn-secondary" (click)="goBack()">Back</button>

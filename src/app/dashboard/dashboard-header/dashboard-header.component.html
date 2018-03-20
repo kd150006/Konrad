@@ -1,0 +1,59 @@
+<nav class="navbar navbar-expand-sm navbar-light bg-light">
+
+  <a class="navbar-brand" href="#">Kasimir</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+    aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+    <ul class="navbar-nav mr-auto">
+
+      <li class="nav-item dropdown">
+        <button class="btn btn-outline-primary dropdown-toggle" type="button" id="transactionDropdownButton" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          Transaction
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuTransactionButton">
+          <a class="dropdown-item" routerLink="/sales">Sale</a>
+          <a class="dropdown-item" href="#">Return</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Cancellation</a>
+        </div>
+      </li>
+
+      <li class="nav-item dropdown">
+        <div class="dropdown">
+          <button class="btn btn-outline-primary dropdown-toggle" type="button" id="journalDropdownButton" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Journal
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuJournalButton">
+            <a class="dropdown-item" routerLink="/journals">Show journals</a>
+
+          </div>
+        </div>
+      </li>
+
+      <li class="nav-item dropdown">
+        <div class="dropdown">
+          <button class="btn btn-outline-primary dropdown-toggle" type="button" id="cashDrawerDropdownButton" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Cash drawer
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuCashdrawerButton">
+            <a class="dropdown-item" routerLink="/cashdrawers">Show balance</a>
+            <a class="dropdown-item" href="/cashdrawers/cashup">Cash up</a>
+          </div>
+        </div>
+      </li>
+    </ul>
+
+    <form class="form-inline">
+      <button class="btn btn-outline-info">Logout</button>
+    </form>
+
+  </div>
+
+</nav>
