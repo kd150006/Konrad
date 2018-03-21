@@ -6,7 +6,6 @@ import { BasketHeaderService } from './../../basket/shared/basket-header.service
 import { Product } from './product.model';
 import { Subject } from 'rxjs/Subject';
 
-
 @Injectable()
 export class ProductListService {
   products: Product[] = [];
@@ -23,17 +22,15 @@ export class ProductListService {
   }
 
   remove(removedProduct: Product) {
-    this.products.forEach((item, index) => {
-      if (item === removedProduct) {
-        this.products.splice(index, 1);
-      }
-    });
+    const index: number = this.products.indexOf(removedProduct);
+    if (index !== -1) {
+      this.products.splice(index, 1);
+    }
     this._sum -= removedProduct.netPrice;
   }
 
   clear() {
     this.products = [];
-    this._sum = 0.0;
   }
 
   get sum() {

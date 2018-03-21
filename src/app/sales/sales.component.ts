@@ -13,6 +13,9 @@ import { BasketHeaderService } from './../basket/shared/basket-header.service';
 import { BasketDetail } from './../basket/shared/basket-detail.model';
 import { BasketHeader } from '../basket/shared/basket-header.model';
 
+import { Cashdrawer } from './../cashdrawer/shared/cashdrawer.model';
+import { CashdrawerService } from './../cashdrawer/shared/cashdrawer.service';
+
 @Component({
   selector: 'app-sales',
   templateUrl: './sales.component.html',
@@ -28,13 +31,16 @@ export class SalesComponent implements OnInit {
   basketHeader: BasketHeader;
   basketDetails: BasketDetail[];
 
+  cashdrawer: Cashdrawer;
+
   constructor(
     private location: Location,
     private router: Router,
     public productListService: ProductListService,
     private productService: ProductService,
     private basketHeaderService: BasketHeaderService,
-    private basketDetailService: BasketDetailService
+    private basketDetailService: BasketDetailService,
+    private cashdrawerService: CashdrawerService
   ) {}
 
   ngOnInit() {
@@ -45,6 +51,9 @@ export class SalesComponent implements OnInit {
     this.basketHeader.basketDate = new Date();
     this.basketHeader.transactionType = 'Sale';
     this.basketHeader.sumTotal = 0.0;
+    this.cashdrawerService
+      .getCashdrawer(1)
+      .subscribe(cashdrawer => (this.cashdrawer = cashdrawer));
   }
   // GETTERS
   get sumTotal() {
@@ -81,9 +90,15 @@ export class SalesComponent implements OnInit {
     this.basketHeader.basketDetails = this.productListService.products.map(
       p => new BasketDetail(p.id, p.netPrice, 1)
     );
+    // Write the transaction and display the receipt
     this.basketHeaderService
       .postBasketHeader(this.basketHeader)
       .subscribe(() => this.showReceipt());
+    // Update the cashdrawer balance
+    this.updateCashdrawerBalance(this.basketHeader.sumTotal);
+    // Update the product quantity
+    this.updateProductQuantity();
+    // clear the product list
   }
 
   goBack(): void {
@@ -92,5 +107,17 @@ export class SalesComponent implements OnInit {
 
   showReceipt(): void {
     this.router.navigate(['/sales/receipt']);
+  }
+
+  updateCashdrawerBalance(sum: number): void {
+    this.cashdrawer.balance += sum;
+    this.cashdrawerService.updateCashdrawer(this.cashdrawer).subscribe();
+  }
+
+  updateProductQuantity(): void {
+    this.productListService.products.forEach(item => {
+      item.quantity--;
+      this.productService.updateProduct(item).subscribe();
+    });
   }
 }

@@ -20,6 +20,7 @@ import { BasketDetailService } from './../../basket/shared/basket-detail.service
 export class JournalSearchComponent implements OnInit {
   journals$: Observable<BasketHeader[]>;
   private searchTerms = new Subject<string>();
+  filterStatus: string;
 
   constructor(private basketHeaderService: BasketHeaderService) {}
 

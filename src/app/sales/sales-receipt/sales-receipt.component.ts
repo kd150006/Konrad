@@ -1,3 +1,4 @@
+import { ProductListService } from './../../product/shared/product-list-service';
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
@@ -21,18 +22,16 @@ export class SalesReceiptComponent implements OnInit {
     private basketHeaderService: BasketHeaderService,
     private basketDetailsService: BasketDetailService,
     private messageService: MessageService,
+    private productListService: ProductListService,
     private route: ActivatedRoute,
-    private router: Router,
-
+    private router: Router
   ) {}
 
   ngOnInit() {
     this.route.data.subscribe((data: { basketHeader: BasketHeader }) => {
       this.basketHeader = data.basketHeader;
     });
-    console.log(this.basketHeader);
     this.getBasketDetailForBasketHeader(this.basketHeader.id);
-    console.log(this.basketDetails);
   }
 
   getLatestBasketHeader(): void {
@@ -45,5 +44,9 @@ export class SalesReceiptComponent implements OnInit {
     this.basketDetailsService
       .getDetails(id)
       .subscribe(basketDetails => (this.basketDetails = basketDetails));
+  }
+
+  clearProductList(): void {
+    this.productListService.clear();
   }
 }

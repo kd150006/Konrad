@@ -7,5 +7,6 @@ export class BasketHeader {
   referenceBasketHeaderId?: number;
   status: string;
   transactionType: string;
+  returned?: boolean;
   basketDetails: BasketDetail[];
 }

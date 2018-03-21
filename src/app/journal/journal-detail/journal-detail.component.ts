@@ -1,3 +1,4 @@
+import { BasketHeaderService } from './../../basket/shared/basket-header.service';
 import { Component, OnInit, Input } from '@angular/core';
 
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
@@ -14,18 +15,24 @@ import { BasketDetailService } from './../../basket/shared/basket-detail.service
   styleUrls: ['./journal-detail.component.css']
 })
 export class JournalDetailComponent implements OnInit {
+  @Input() journal: BasketHeader;
   details: BasketDetail[];
-  journalId: number;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private location: Location,
+    private basketHeaderService: BasketHeaderService,
     private basketDetailService: BasketDetailService
   ) {}
 
   ngOnInit() {
+    this.getHeaderById();
     this.getDetailsByHeaderId();
+  }
+  getHeaderById(): void {
+    const id = +this.route.snapshot.paramMap.get('id');
+    this.basketHeaderService.getHeader(id).subscribe(header => this.journal = header);
   }
 
   getDetailsByHeaderId(): void {
@@ -33,10 +40,10 @@ export class JournalDetailComponent implements OnInit {
     this.basketDetailService
       .getDetails(id)
       .subscribe(details => (this.details = details));
-      this.journalId = id;
+    // this.journalId = id;
   }
 
-  goBack(): void{
+  goBack(): void {
     this.location.back();
   }
 }

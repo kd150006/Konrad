@@ -1,5 +1,9 @@
 <br>
-<h5>Journal #{{ journalId }} Details</h5>
+<h5>Journal #{{ journal.id }} Details</h5>
+<div *ngIf="journal.referenceBasketHeaderId">
+  <h6>Reference # {{ journal.referenceBasketHeaderId }}</h6>
+</div>
+<h5>Sum total: {{ journal.sumTotal }}</h5>
 <table class="table">
   <thead>
     <tr>

@@ -11,9 +11,11 @@ import { JournalDetailComponent } from './journal-detail/journal-detail.componen
 
 import { JournalRoutingModule } from './journal-routing.module';
 import { JournalSearchComponent } from './journal-search/journal-search.component';
+import { FilterByStatusPipe } from './shared/filter-by-status.pipe';
+
 
 @NgModule({
-  declarations: [JournalListComponent, JournalDetailComponent, JournalSearchComponent],
+  declarations: [JournalListComponent, JournalDetailComponent, JournalSearchComponent, FilterByStatusPipe],
   imports: [CommonModule, FormsModule, JournalRoutingModule],
   exports: [JournalSearchComponent],
   providers: [BasketHeaderService, BasketDetailService, MessageService]

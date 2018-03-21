@@ -52,9 +52,17 @@ export class BasketHeaderService {
       .get<BasketHeader>(url)
       .pipe(
         tap(_ => this.log(`fetched latest header`)),
-        catchError(
-          this.handleError<BasketHeader>(`getLatestBasketHeader`)
-        )
+        catchError(this.handleError<BasketHeader>(`getLatestBasketHeader`))
+      );
+  }
+  // GET get only baskets of type a certrain transaction type
+  getBasketHeadersByTrxType(trxType: string): Observable<BasketHeader[]> {
+    const url = `${this.baseUrl}/trx/${trxType}`;
+    return this.http
+      .get<BasketHeader[]>(url)
+      .pipe(
+        tap(_ => this.log(`fetched ${trxType} headers`)),
+        catchError(this.handleError('getBasketHeadersByTrxType', []))
       );
   }
   // GET basket headers that contain search term
@@ -70,7 +78,17 @@ export class BasketHeaderService {
         catchError(this.handleError<BasketHeader[]>('searchBaketHeaders', []))
       );
   }
-  // PUT
+  // PUT update basket header on the service
+  putBasketHeader(basketHeader: BasketHeader): Observable<BasketHeader> {
+    const url = `${this.baseUrl}/${basketHeader.id}`;
+    return this.http
+      .put(url, basketHeader, httpOptions)
+      .pipe(
+        tap(_ => this.log(`updated basket header id=${basketHeader.id}`)),
+        catchError(this.handleError<any>('putBasketHeader'))
+      );
+  }
+
   // POST create a new basket header on the server */
   postBasketHeader(basketHeader: BasketHeader) {
     const url = `${this.baseUrl}`;
