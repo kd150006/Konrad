@@ -22,11 +22,11 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     BrowserModule,
     HttpClientModule,
     DashBoardModule,
-    JournalModule,
-    CashdrawerModule,
     SalesModule,
     ReturnModule,
     ProductModule,
+    JournalModule,
+    CashdrawerModule,
     AppRoutingModule
   ],
   providers: [],

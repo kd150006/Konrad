@@ -45,9 +45,9 @@ export class BasketHeaderService {
         catchError(this.handleError<BasketHeader>(`getHeader id=${id}`))
       );
   }
-  // GET get the latest basket header aka max id
-  getLatestBasketHeader(): Observable<BasketHeader> {
-    const url = `${this.baseUrl}/latest`;
+  // GET get the latest basket header aka max id and trxType
+  getLatestBasketHeader(trxType: string): Observable<BasketHeader> {
+    const url = `${this.baseUrl}/latest/${trxType}`;
     return this.http
       .get<BasketHeader>(url)
       .pipe(

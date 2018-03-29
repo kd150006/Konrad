@@ -1,9 +1,11 @@
 export class Product {
-  id: number;
-  netPrice: number;
-  quantity: number;
-  number: string;
-  name: string;
-  barcode: string;
-  status: string;
+  constructor(
+    public id: number,
+    public status?: string,
+    public quantity?: number,
+    public number?: string,
+    public name?: string,
+    public barcode?: string,
+    public netPrice?: number,
+  ) {}
 }

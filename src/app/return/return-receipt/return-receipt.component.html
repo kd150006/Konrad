@@ -1,0 +1,42 @@
+<!-- <div #returnReceipt class="container-fluid">
+  <br>
+  <h4>
+    Return receipt #{{ basketHeader.id }}
+  </h4>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Quantity</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let basketDetail of basketDetails; let i = index">
+        <td> {{ i+1 }} </td>
+        <td> {{ basketDetail.product.name}} </td>
+        <td> {{ basketDetail.quantity }} </td>
+        <td> {{ basketDetail.productPrice }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <hr>
+  <div class="form-inline float-right">
+    <div class="form-row">
+      <div class="form-col">
+        <input type="text" readonly class="form-control-plaintext" id="sumTotalLabel" value="Sum total: ">
+      </div>
+      <div class="form-col">
+        <input type="text" readonly class="form-control-plaintext" id="sumTotalValue" value=" {{ basketHeader.sumTotal | currency: 'EUR' }}">
+      </div>
+    </div>
+  </div>
+
+  <div class="btn-group" role="group" aria-label="Basic example">
+    <button type="button" id="backButton"class="btn btn-secondary" routerLink="/return" (click)="clearProductList()">Back</button>
+  </div> -->
+
+<p>
+  Return receipt works!
+</p>

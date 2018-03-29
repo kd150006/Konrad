@@ -10,11 +10,11 @@ import { BasketHeader } from './../../basket/shared/basket-header.model';
 import { BasketDetail } from './../../basket/shared/basket-detail.model';
 
 @Component({
-  selector: 'app-sales-receipt',
-  templateUrl: './sales-receipt.component.html',
-  styleUrls: ['./sales-receipt.component.css']
+  selector: 'app-return-receipt',
+  templateUrl: './return-receipt.component.html',
+  styleUrls: ['./return-receipt.component.css']
 })
-export class SalesReceiptComponent implements OnInit {
+export class ReturnReceiptComponent implements OnInit {
   basketHeader: BasketHeader;
   basketDetails: BasketDetail[];
 
@@ -36,7 +36,7 @@ export class SalesReceiptComponent implements OnInit {
 
   getLatestBasketHeader(): void {
     this.basketHeaderService
-      .getLatestBasketHeader('Sale')
+      .getLatestBasketHeader('Return')
       .subscribe(basketHeader => (this.basketHeader = basketHeader));
   }
 

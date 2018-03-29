@@ -13,7 +13,7 @@ import { BasketHeader } from './../basket/shared/basket-header.model';
 import { BasketHeaderService } from './../basket/shared/basket-header.service';
 
 @Injectable()
-export class SalesReceiptResolver implements Resolve<BasketHeader> {
+export class ReturnReceiptResolver implements Resolve<BasketHeader> {
   basketHeader: BasketHeader;
   constructor(
     private basketHeaderService: BasketHeaderService,
@@ -25,7 +25,7 @@ export class SalesReceiptResolver implements Resolve<BasketHeader> {
     state: RouterStateSnapshot
   ): Observable<BasketHeader> {
     return this.basketHeaderService
-      .getLatestBasketHeader('Sale')
+      .getLatestBasketHeader('Return')
       .map(basketHeader => {
         if (basketHeader) {
           return basketHeader;

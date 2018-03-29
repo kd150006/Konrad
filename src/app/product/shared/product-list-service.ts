@@ -31,6 +31,7 @@ export class ProductListService {
 
   clear() {
     this.products = [];
+    this._sum = 0.0;
   }
 
   get sum() {

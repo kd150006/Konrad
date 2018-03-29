@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, map, tap, debounceTime } from 'rxjs/operators';
 
 import { Product } from './product.model';
 import { MessageService } from './../../messages/shared/message.service';
@@ -79,7 +79,7 @@ export class ProductService {
       catchError(this.handleError<Product[]>('searchProducts', []))
     );
   }
-  /** PUT **/
+  /** PUT: update a product on the server */
   updateProduct(product: Product): Observable<Product> {
     const url = `${this.baseUrl}/${product.id}`;
     return this.http
@@ -89,7 +89,16 @@ export class ProductService {
         catchError(this.handleError<any>('updateProduct'))
       );
   }
-  /** POST **/
+  /*PUT: update products on the server*/
+  updateProducts(products: Product[]): Observable<Product[]>{
+    const url = `${this.baseUrl}/batch`;
+    return this.http
+      .put(url, products, httpOptions)
+      .pipe(
+        tap(_ => this.log(`updated product id=${products}`)),
+        catchError(this.handleError<any>('updateProduct'))
+      );
+  }
   /*POST: create a product on the server */
   createProduct(product: Product) {
     const url = `${this.baseUrl}`;
@@ -124,10 +133,8 @@ export class ProductService {
     return (error: any): Observable<T> => {
       // TODO: send the error to remote logging infrastructure
       console.error(error); // log to console instead
-
       // TODO: better job of transforming error for user consumption
       this.log(`${operation} failed: ${error.message}`);
-
       // Let the app keep running by returning an empty result.
       return of(result as T);
     };

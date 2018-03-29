@@ -1,3 +1,4 @@
+import { Subject } from 'rxjs/Subject';
 import { map } from 'rxjs/operators';
 import { Product } from './../../product/shared/product.model';
 import { Component, OnInit, Input } from '@angular/core';
@@ -27,6 +28,7 @@ export class ReturnDetailComponent implements OnInit {
   cashdrawer: Cashdrawer;
   product: Product;
   latestHeader: BasketHeader;
+  productToUpdate: Product;
 
   constructor(
     private basketHeaderService: BasketHeaderService,
@@ -52,7 +54,6 @@ export class ReturnDetailComponent implements OnInit {
     const id = +this.route.snapshot.paramMap.get('id');
     this.basketHeaderService
       .getHeader(id)
-      // .pipe(filter(basketHeader => basketHeader.transactionType.toLowerCase() === 'Sales'.toLowerCase()))
       .subscribe(basketHeader => (this.basketHeader = basketHeader));
   }
 
@@ -82,8 +83,9 @@ export class ReturnDetailComponent implements OnInit {
     this.updateProductQuantity();
     // mark the old basket header as used and navigate back to list
     this.basketHeader.returned = true;
-    this.basketHeaderService.putBasketHeader(this.basketHeader).subscribe();
-    this.goBack();
+    this.basketHeaderService
+      .putBasketHeader(this.basketHeader)
+      .subscribe(() => this.showReceipt());
   }
 
   updateCashdrawerBalance(sum: number): void {
@@ -103,6 +105,11 @@ export class ReturnDetailComponent implements OnInit {
     this.returnBasketHeader.transactionType = 'Return';
     this.returnBasketHeader.basketDetails = [];
   }
+
+  showReceipt(): void {
+    this.router.navigate(['/return']);
+  }
+
   goBack(): void {
     this.location.back();
   }
