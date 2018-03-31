@@ -85,7 +85,7 @@ export class SalesComponent implements OnInit {
       p => new BasketDetail(p.id, p.netPrice, 1)
     );
     // Update the product quantity
-    this.productListService.products.forEach( item => {
+    this.productListService.products.forEach(item => {
       this.updateProductQuantity(this.products, item);
     });
     this.productService.updateProducts(this.products).subscribe();
@@ -128,7 +128,8 @@ export class SalesComponent implements OnInit {
         product.quantity--;
         this.products.push(product);
       } else {
-        product.quantity = product.quantity - resultCnt;
+        const index = this.products.findIndex(p => p.id === product.id);
+        this.products[index].quantity -= resultCnt;
       }
     }
     return this.products;
@@ -141,6 +142,7 @@ export class SalesComponent implements OnInit {
       return -1;
     }
   }
+
   initSalesTrx(): void {
     this.givenAmount = 0.0;
     this._remainingAmount = 0.0;

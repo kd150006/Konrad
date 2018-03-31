@@ -25,10 +25,10 @@ export class ReturnDetailComponent implements OnInit {
   basketHeader: BasketHeader;
   basketDetails: BasketDetail[];
   returnBasketHeader: BasketHeader;
+  latestHeader: BasketHeader;
   cashdrawer: Cashdrawer;
   product: Product;
-  latestHeader: BasketHeader;
-  productToUpdate: Product;
+  products: Product[] = [];
 
   constructor(
     private basketHeaderService: BasketHeaderService,
@@ -80,7 +80,10 @@ export class ReturnDetailComponent implements OnInit {
     // Update the cashdrawer balance
     this.updateCashdrawerBalance(this.returnBasketHeader.sumTotal);
     // Update the product quantity
-    this.updateProductQuantity();
+    this.basketDetails.forEach(item => {
+      this.updateProductQuantity(this.products, item.product);
+    });
+    this.productService.updateProducts(this.products).subscribe();
     // mark the old basket header as used and navigate back to list
     this.basketHeader.returned = true;
     this.basketHeaderService
@@ -93,12 +96,39 @@ export class ReturnDetailComponent implements OnInit {
     this.cashdrawerService.updateCashdrawer(this.cashdrawer).subscribe();
   }
 
-  updateProductQuantity(): void {
-    this.basketDetails.forEach(item => {
-      item.product.quantity++;
-      this.productService.updateProduct(item.product).subscribe();
-    });
+  updateProductQuantity(products: Product[], product: Product): Product[] {
+    let cnt = 0;
+    let resultCnt = 0;
+
+    if (this.products.length < 1) {
+      product.quantity++;
+      this.products.push(product);
+    } else {
+      while (cnt < products.length) {
+        if (this.compareByProductId(products[cnt], product) === 0) {
+          resultCnt++;
+        }
+        cnt++;
+      }
+      if (resultCnt < 1) {
+        product.quantity++;
+        this.products.push(product);
+      } else {
+        const index = this.products.findIndex(p => p.id === product.id);
+        this.products[index].quantity += resultCnt;
+      }
+    }
+    return this.products;
   }
+
+  compareByProductId(a: Product, b: Product) {
+    if (a.id === b.id) {
+      return 0;
+    } else {
+      return -1;
+    }
+  }
+
   initReturnBasketHeader(): void {
     this.returnBasketHeader = new BasketHeader();
     this.returnBasketHeader.basketDate = new Date();
