@@ -11,8 +11,9 @@ import { ReturnReceiptResolver } from './return-receipt-resolver.service';
 
 const returnRoutes: Routes = [
   { path: 'return', component: ReturnComponent },
-  { path: 'return/:id', component: ReturnDetailComponent },
-  { path: 'return/receipt', component: ReturnReceiptComponent, resolve: { basketHeader: ReturnReceiptResolver } }
+  // { path: 'return/receipt', component: ReturnReceiptComponent },
+  { path: 'return/receipt', component: ReturnReceiptComponent, resolve: { basketHeader: ReturnReceiptResolver } },
+  { path: 'return/:id', component: ReturnDetailComponent }
 
 ];
 

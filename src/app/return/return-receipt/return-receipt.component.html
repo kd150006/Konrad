@@ -1,8 +1,14 @@
-<!-- <div #returnReceipt class="container-fluid">
+<div #returnReceipt class="container-fluid">
   <br>
   <h4>
     Return receipt #{{ basketHeader.id }}
   </h4>
+  <h5>
+    Return date: {{ basketHeader.basketDate | date }}
+  </h5>
+  <h5>
+    Original receipt #{{ basketHeader.referenceBasketHeaderId }}
+  </h5>
   <table class="table">
     <thead>
       <tr>
@@ -35,8 +41,4 @@
 
   <div class="btn-group" role="group" aria-label="Basic example">
     <button type="button" id="backButton"class="btn btn-secondary" routerLink="/return" (click)="clearProductList()">Back</button>
-  </div> -->
-
-<p>
-  Return receipt works!
-</p>
+  </div>

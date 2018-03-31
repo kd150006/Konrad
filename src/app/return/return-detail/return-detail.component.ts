@@ -137,7 +137,7 @@ export class ReturnDetailComponent implements OnInit {
   }
 
   showReceipt(): void {
-    this.router.navigate(['/return']);
+    this.router.navigate(['/return/receipt']);
   }
 
   goBack(): void {
