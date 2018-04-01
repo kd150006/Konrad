@@ -17,6 +17,7 @@ export class CashdrawerListComponent implements OnInit {
 
   constructor(
     private location: Location,
+    private router: Router,
     private cashdrawerService: CashdrawerService
   ) {}
 
@@ -30,6 +31,7 @@ export class CashdrawerListComponent implements OnInit {
   }
 
   goBack(): void {
-    this.location.back();
+    this.router.navigate(['/dashboard']);
+    //  this.location.back();
   }
 }
