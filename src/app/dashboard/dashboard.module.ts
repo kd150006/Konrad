@@ -14,13 +14,13 @@ import { MessagesComponent } from './../messages/messages.component';
     DashboardHeaderComponent,
     DashboardBodyComponent,
     DashboardFooterComponent,
-    MessagesComponent
+    MessagesComponent,
   ],
   exports: [
     DashboardHeaderComponent,
     DashboardBodyComponent,
     DashboardFooterComponent,
-    MessagesComponent
+    MessagesComponent,
   ],
   imports: [CommonModule, FormsModule, DashboardRoutingModule],
   providers: []

@@ -15,6 +15,7 @@ import { CashdrawerService } from './../../cashdrawer/shared/cashdrawer.service'
 
 import { MessageService } from '../../messages/shared/message.service';
 import { ProductService } from '../../product/shared/product.service';
+import { LoaderService } from './../../loader/shared/loader.service';
 
 @Component({
   selector: 'app-return-detail',
@@ -29,6 +30,7 @@ export class ReturnDetailComponent implements OnInit {
   cashdrawer: Cashdrawer;
   product: Product;
   products: Product[] = [];
+  loaderShowing = false;
 
   constructor(
     private basketHeaderService: BasketHeaderService,
@@ -36,6 +38,7 @@ export class ReturnDetailComponent implements OnInit {
     private cashdrawerService: CashdrawerService,
     private productService: ProductService,
     private messageService: MessageService,
+    private loaderService: LoaderService,
     private route: ActivatedRoute,
     private router: Router,
     private location: Location
@@ -65,6 +68,8 @@ export class ReturnDetailComponent implements OnInit {
   }
 
   return(): void {
+    this.loaderShowing = true;
+    this.loaderService.show('returnLoader');
     // Create new return basket header
     this.initReturnBasketHeader();
     this.returnBasketHeader.referenceBasketHeaderId = this.basketHeader.id;

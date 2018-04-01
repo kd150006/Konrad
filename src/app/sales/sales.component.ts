@@ -16,6 +16,8 @@ import { BasketHeader } from '../basket/shared/basket-header.model';
 import { Cashdrawer } from './../cashdrawer/shared/cashdrawer.model';
 import { CashdrawerService } from './../cashdrawer/shared/cashdrawer.service';
 
+import { LoaderService } from './../loader/shared/loader.service';
+
 @Component({
   selector: 'app-sales',
   templateUrl: './sales.component.html',
@@ -34,6 +36,8 @@ export class SalesComponent implements OnInit {
 
   cashdrawer: Cashdrawer;
 
+  loaderShowing = false;
+
   constructor(
     private location: Location,
     private router: Router,
@@ -41,7 +45,8 @@ export class SalesComponent implements OnInit {
     private productService: ProductService,
     private basketHeaderService: BasketHeaderService,
     private basketDetailService: BasketDetailService,
-    private cashdrawerService: CashdrawerService
+    private cashdrawerService: CashdrawerService,
+    private loaderService: LoaderService
   ) {}
 
   ngOnInit() {
@@ -53,14 +58,14 @@ export class SalesComponent implements OnInit {
   // GETTERS
   get sumTotal() {
     this.basketHeader.sumTotal = this.productListService.sum;
-    return this.basketHeader.sumTotal;
+    return Math.round(this.basketHeader.sumTotal * 100) / 100;
   }
 
   get changeAmount() {
     if (this.givenAmount - this.sumTotal <= 0) {
       return 0;
     } else {
-      return this.givenAmount - this.sumTotal;
+      return Math.round((this.givenAmount - this.sumTotal) * 100) / 100;
     }
   }
 
@@ -68,7 +73,7 @@ export class SalesComponent implements OnInit {
     if (this.sumTotal - this.givenAmount < 0) {
       return 0;
     } else {
-      return this.sumTotal - this.givenAmount;
+      return Math.round ( (this.sumTotal - this.givenAmount) * 100) / 100;
     }
   }
 
@@ -81,6 +86,8 @@ export class SalesComponent implements OnInit {
   }
 
   checkout(): void {
+    this.loaderShowing = true;
+    this.loaderService.show('saleLoader');
     this.basketHeader.basketDetails = this.productListService.products.map(
       p => new BasketDetail(p.id, p.netPrice, 1)
     );
